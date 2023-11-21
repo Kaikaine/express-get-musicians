@@ -11,12 +11,7 @@ app.get('/musicians', async(req, res) =>{
     console.log(data)
     res.json(data)
 })
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
 
 
 
-
-module.exports = { app };
+module.exports = app ;
