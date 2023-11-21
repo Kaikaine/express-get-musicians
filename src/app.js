@@ -12,4 +12,10 @@ app.get("/musicians", async (req, res) => {
   res.json(data);
 });
 
+app.get("/musicians/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = await Musician.findByPk(id);
+  res.json(data);
+});
+
 module.exports = app;
