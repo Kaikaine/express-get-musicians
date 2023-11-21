@@ -33,14 +33,31 @@ describe("./musicians endpoint", () => {
     expect(res.statusCode).toBe(200);
 
     const resD = res.text;
-    console.log("RESD", resD);
 
     let musician = await Musician.findByPk(1);
-    console.log("MUSIC", typeof musician);
 
     musician = JSON.stringify(musician);
-    console.log("RESD", typeof resD);
 
     expect(resD).toMatch(musician);
   });
+
+  test('a new musician can be created via POST', async () => {
+    const musiciansBeforePost = await request(app).get('/musicians')
+    const lengthBefore = musiciansBeforePost._body.length
+    console.log(lengthBefore)
+
+    const newMusician = {
+      name: 'Test',
+      instrument: 'Test'
+    }
+
+    const res = await request(app)
+      .post('/musicians')
+      .send(newMusician)
+
+    expect(res.statusCode).toBe(200);
+
+    const musiciansAfterPost = await request(app).get('/musicians')
+    expect(musiciansAfterPost._body).toHaveLength(lengthBefore + 1)
+  })
 });
