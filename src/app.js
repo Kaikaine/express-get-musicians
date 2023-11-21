@@ -37,7 +37,9 @@ app.delete('/musicians/:id', async(req,res)=>{
     // }
 
     try{
-        await Musician.destroy({where:{id: req.params.id}})
+        const id = req.params.id
+        if(!id) res.status(400)
+        await Musician.destroy({where:{id: id}})
         res.status(200)
     } catch(err){
         console.log(err)
