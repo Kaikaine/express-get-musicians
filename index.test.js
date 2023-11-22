@@ -61,11 +61,19 @@ describe("./musicians endpoint", () => {
     expect(musiciansAfterPost._body).toHaveLength(lengthBefore + 1)
   })
 
-  // test('testing DELETE endpoint', async()=>{
-  //   const musiciansLenght = await request(app).get('/musicians')
-  //   const musiciansLenghtAfterDelete = await request(app).delete('/musicians/1')
-  //   // expect(musiciansLenghtAfterDelete._body.length).toBe(musiciansLenght._body.length - 1)
-  // })
-
+   test('testing DELETE endpoint', async()=>{
+       const musiciansLenght = await request(app).get('/musicians')
+       await request(app).delete('/musicians/1')
+       const musiciansLenght1 = await request(app).get('/musicians')
+     expect(musiciansLenght1._body.length).toBe(musiciansLenght._body.length - 1)
+   })
+   // 
+    test('testing PUT endpoint', async () => {
+        const mucisianBefore = await request(app).get('/muscians/3')
+        const put = await request(app).put({ name: "lala", instrument: "something" })
+        const mucisianAfter = await request(app).get('/muscians/3')
+        expect(mucisianBefore).toBe(put)
+        //do i need to start the server maybe?
+    })
 });
 

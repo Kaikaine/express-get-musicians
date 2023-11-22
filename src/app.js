@@ -25,24 +25,16 @@ app.post('/musicians', async (req, res) => {
 })
 
 
-app.delete('/musicians/:id', async(req,res)=>{
-    // const musicians = await Musician.findAll()
-    // try{
-    //     let musician = await Musician.findOne({where:{id: req.params.id}})
-    //     console.log(musician)
-    //     await musician.destroy()
-    //     res.status(200)
-    // } catch(error){
-    //     console.log(error)
-    // }
+app.delete('/musicians/:id', async (req, res) => {
+    await Musician.destroy({ where: { id: req.params.id } })
+    res.send(`${req.params.id} musician deleted`)
+})
 
-    try{
-        const id = req.params.id
-        if(!id) res.status(400)
-        await Musician.destroy({where:{id: id}})
-        res.status(200)
-    } catch(err){
-        console.log(err)
-    }
+app.put('/musicians/:id', async (req, res) => {
+    //we get req for what id we are changing
+    //lemme look at should i make it set?
+    const entryBiengChanged = await Musician.findOne({ where: { id: req.params.id } })
+    let data = await entryBiengChanged.set(req.body)
+    res.json(data)
 })
 module.exports = app;
