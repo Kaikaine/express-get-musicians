@@ -61,11 +61,21 @@ describe("./musicians endpoint", () => {
     expect(musiciansAfterPost._body).toHaveLength(lengthBefore + 1)
   })
 
-  // test('testing DELETE endpoint', async()=>{
-  //   const musiciansLenght = await request(app).get('/musicians')
-  //   const musiciansLenghtAfterDelete = await request(app).delete('/musicians/1')
-  //   // expect(musiciansLenghtAfterDelete._body.length).toBe(musiciansLenght._body.length - 1)
-  // })
-
+   test('testing DELETE endpoint', async()=>{
+       const musiciansLenght = await request(app).get('/musicians')
+       await request(app).delete('/musicians/1')
+       const musiciansLenght1 = await request(app).get('/musicians')
+     expect(musiciansLenght1._body.length).toBe(musiciansLenght._body.length - 1)
+   })
+   // 
+    test('testing PUT endpoint', async () => {
+        const mucisianBefore = await request(app).get('/muscians/3')
+        //It needs an address here but idk where to give it what we are changing it to do we not need to put that here?
+        const put = await request(app).put('/musicians/3')
+        const mucisianAfter = await request(app).get('/muscians/3')
+        //this test is not working V
+        expect(mucisianBefore).toBe(put)
+        expect(mucisianAfter).not.toBe(mucisianBefore)
+    })
 });
 

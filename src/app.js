@@ -25,24 +25,14 @@ app.post('/musicians', async (req, res) => {
 })
 
 
-app.delete('/musicians/:id', async(req,res)=>{
-    // const musicians = await Musician.findAll()
-    // try{
-    //     let musician = await Musician.findOne({where:{id: req.params.id}})
-    //     console.log(musician)
-    //     await musician.destroy()
-    //     res.status(200)
-    // } catch(error){
-    //     console.log(error)
-    // }
+app.delete('/musicians/:id', async (req, res) => {
+    await Musician.destroy({ where: { id: req.params.id } })
+    res.send(`${req.params.id} musician deleted`)
+})
 
-    try{
-        const id = req.params.id
-        if(!id) res.status(400)
-        await Musician.destroy({where:{id: id}})
-        res.status(200)
-    } catch(err){
-        console.log(err)
-    }
+app.put('/musicians/:id', async (req, res) => {
+    const entryBiengChanged = await Musician.findByPk(req.params.id)
+    await entryBiengChanged.set(req.body)
+    res.send(`Changed ${entryBiengChanged} to ${req.body}`)
 })
 module.exports = app;
