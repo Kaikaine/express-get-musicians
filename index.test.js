@@ -70,10 +70,12 @@ describe("./musicians endpoint", () => {
    // 
     test('testing PUT endpoint', async () => {
         const mucisianBefore = await request(app).get('/muscians/3')
-        const put = await request(app).put({ name: "lala", instrument: "something" })
+        //It needs an address here but idk where to give it what we are changing it to do we not need to put that here?
+        const put = await request(app).put('/musicians/3')
         const mucisianAfter = await request(app).get('/muscians/3')
+        //this test is not working V
         expect(mucisianBefore).toBe(put)
-        //do i need to start the server maybe?
+        expect(mucisianAfter).not.toBe(mucisianBefore)
     })
 });
 

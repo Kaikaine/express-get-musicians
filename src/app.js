@@ -31,10 +31,8 @@ app.delete('/musicians/:id', async (req, res) => {
 })
 
 app.put('/musicians/:id', async (req, res) => {
-    //we get req for what id we are changing
-    //lemme look at should i make it set?
-    const entryBiengChanged = await Musician.findOne({ where: { id: req.params.id } })
-    let data = await entryBiengChanged.set(req.body)
-    res.json(data)
+    const entryBiengChanged = await Musician.findByPk(req.params.id)
+    await entryBiengChanged.set(req.body)
+    res.send(`Changed ${entryBiengChanged} to ${req.body}`)
 })
 module.exports = app;
