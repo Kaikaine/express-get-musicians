@@ -62,10 +62,10 @@ describe("./musicians endpoint", () => {
   })
 
    test('testing DELETE endpoint', async()=>{
-       const musiciansLenght = await request(app).get('/musicians')
-       await request(app).delete('/musicians/1')
-       const musiciansLenght1 = await request(app).get('/musicians')
-     expect(musiciansLenght1._body.length).toBe(musiciansLenght._body.length - 1)
+      const musiciansLenght = await request(app).get('/musicians')
+      await request(app).delete('/musicians/1')
+      const musiciansLenght1 = await request(app).get('/musicians')
+      expect(musiciansLenght1._body.length).toBe(musiciansLenght._body.length - 1)
    })
    // 
     test('testing PUT endpoint', async () => {
